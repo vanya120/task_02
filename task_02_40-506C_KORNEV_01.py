@@ -4,6 +4,7 @@ import os
 import requests
 import re
 import scipy.special as sc
+import matplotlib.ticker as mt
 
 def h(n, x):
     return sc.spherical_jn(n, x) + 1j * sc.spherical_yn(n, x)
@@ -31,10 +32,10 @@ def RCS(D, fmin, fmax):
         ouf.write('f, [ГГц]\tsigma, [м^2]\n')
         for i in range(len(f)):
             ouf.write(str('{0:.2f}\t\t{1}\n'.format(f[i] * 1e-9, sigma[i])))
-    plt.plot(2 * np.pi * f * r / c, np.divide(sigma, np.pi * r ** 2))
+    plt.plot(f, sigma)
     plt.grid()
-    plt.ylabel(r'$\frac{\sigma}{\pi r^2}$', fontsize = 18)
-    plt.xlabel('$kr$')
+    plt.ylabel(r'$\sigma$, [$м^2$]', fontsize = 18)
+    plt.xlabel('$f$, [ГГц]')
     plt.show()
            
 if __name__ == '__main__':
